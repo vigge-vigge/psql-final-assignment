@@ -77,4 +77,46 @@ SELECT feedback_id, ratings,
 FROM feedback
 
 SELECT
-    MIN(price)
+    MIN(price) AS cheapest_flight,
+    MAX(price) AS most_expensive_flight,
+    AVG(price) AS average_flight_price
+FROM flights;
+
+SELECT SUM(total_price) AS total_revenue
+FROM bookings;
+
+SELECT AVG(rating) AS average_rating
+FROM feedback;
+
+BEGIN;
+INSERT INTO bookings(customer_id, flight_id, accomodation_id, total_price)
+VALUES (1, 1, 1, 700.00;)
+
+INSERT INTO payments (booking_id, payment_method, amount)
+VALUES (currval('bookings_booking_id_seq'), 'Credit Card', 700.00);
+COMMIT;
+
+BEGIN;
+INSERT INTO bookings (customer_id, flight_id, accomodation_id, total_price)
+VALUES (2, 2, 2, 1500.00);
+
+ROLLBACK;
+
+INSERT INTO roles (role_name) VALUES ('PremiumCustomer');
+
+UPDATE customers
+SET role_id = (SELECT role_id FROM roles WHERE role_name = 'PremiumCustomer')
+WHERE customer_id = 1;
+
+SELECT c.customer_id, c.first_name, c.last_name, r.role_name
+FROM customers c
+JOIN roles r ON c.role_id = r.role_id
+WHERE c.customer_id = 1;
+
+SELECT d.destination_name, COUNT(b.booking_id) AS bookings_count
+FROM bookings b
+JOIN flights f ON b.flight_id = f.flight_id
+JOIN destinations d ON f.destination_id = d.destination_id
+GROUP BY d.destination_name
+ORDER BY bookings_count DESC
+LIMIT 1;

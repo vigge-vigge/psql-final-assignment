@@ -64,3 +64,4 @@ VALUES
 --after skills up to select ratings
 -- INSERT INTO promotions (promotion_id, promotion_name, start_date, end_date, discount)
 -- VALUES (1, 'Summer Sale', '2023-06-01', 2023-08)
+
