@@ -9,14 +9,14 @@ SELECT SUM(total_price) AS total_revenue
 FROM bookings;
 
 SELECT d.destination_name, COUNT(b.booking_id) AS bookings_count
-FROM bookings booking_date
+FROM bookings b -- b instead of the text
 JOIN flights f ON b.flight_id = f.flight_id
 JOIN destinations d ON f.destination_id = d.destination_id
 GROUP BY d.destination_name
 ORDER BY bookings_count DESC
 LIMIT 1;
 
-SELECT ratings, comments
+SELECT feedback.rating, comments -- feedback.rating
 FROM feedback
 WHERE booking_id = 1;
 
