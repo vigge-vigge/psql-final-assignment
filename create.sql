@@ -1,4 +1,4 @@
-CREATE DATABASE easytravel;
+
 \c easytravel
 
 CREATE TABLE roles(
@@ -8,15 +8,15 @@ CREATE TABLE roles(
 
 CREATE TABLE customers(
     customer_id SERIAL PRIMARY KEY,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
+    customer_name VARCHAR(50) NOT NULL,
+    customer_surname VARCHAR(50) NOT NULL,
+    customer_email VARCHAR(100) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
     role_id INT REFERENCES roles(role_id) ON DELETE CASCADE,
     loyalty_points INT DEFAULT 0
 );
 
-CREATE TABLE loyaltyprogram(
+CREATE TABLE customerLoyalty(
     loyalty_id SERIAL PRIMARY KEY,
     customer_id INT REFERENCES customers(customer_id) ON DELETE CASCADE,
     points_earned INT DEFAULT 0,
@@ -25,7 +25,7 @@ CREATE TABLE loyaltyprogram(
 
 CREATE TABLE destinations(
     destination_id SERIAL PRIMARY KEY,
-    destination_name VARCHAR (100) NOT NULL,
+    destination_address VARCHAR (100) NOT NULL,
     region VARCHAR(50) NOT NULL,
     country VARCHAR(50) NOT NULL
 );
@@ -35,7 +35,7 @@ CREATE TABLE flights(
     airline VARCHAR(100) NOT NULL,
     departure_time TIMESTAMP NOT NULL,
     arrival_time TIMESTAMP NOT NULL,
-    origin VARCHAR(100) NOT NULL,
+    flight_origin VARCHAR(100) NOT NULL,
     destination_id INT REFERENCES destinations(destination_id) ON DELETE CASCADE,
     seat_class VARCHAR(50) NOT NULL,
     price NUMERIC(10, 2) NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE accomodations(
     amenities TEXT
 );
 
-CREATE TABLE taxitransfers(
+CREATE TABLE taxiTransfers(
     transfer_id SERIAL PRIMARY KEY,
     destination_id INT REFERENCES destinations(destination_id) ON DELETE CASCADE,
     transfer_type VARCHAR(50) NOT NULL,
@@ -70,8 +70,8 @@ CREATE TABLE bookings(
     flight_id INT REFERENCES flights(flight_id) ON DELETE SET NULL,
     accomodation_id INT REFERENCES accomodations(accomodation_id) ON DELETE SET NULL,
     transfer_id INT REFERENCES taxitransfers(transfer_id) ON DELETE SET NULL,
-    total_price NUMERIC(10, 2) NOT NULL,
     booking_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    total_price NUMERIC(10, 2) NOT NULL,
     status VARCHAR(50) DEFAULT 'pending'
 );
 
@@ -101,6 +101,7 @@ CREATE TABLE promotions(
     promotion_name VARCHAR(100) NOT NULL,
     discount_percentage NUMERIC(5, 2) NOT NULL,
     start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
     is_loyalty_exclusive BOOLEAN DEFAULT FALSE
 );
 
@@ -109,3 +110,40 @@ CREATE TABLE bookingpromotions(
     promotion_id INT REFERENCES promotions(promotion_id) ON DELETE CASCADE,
     PRIMARY KEY (booking_id, promotion_id)
 );
+
+CREATE TABLE agencies(
+    agency_id SERIAL PRIMARY KEY,
+    agency_name VARCHAR(100) NOT NULL,
+    agency_email VARCHAR(100) NOT NULL,
+    agency_phone_no VARCHAR(15) NOT NULL,
+    agency_address VARCHAR(100),
+    established_date DATE,
+    agency_service VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE holidayType(
+    holiday_type_id SERIAL PRIMARY KEY,
+    holiday_type_name VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL
+);
+
+
+CREATE ROLE admin_role PASSWORD 'admin123';
+
+CREATE ROLE agency_role PASSWORD 'agency123';
+
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public to admin_role;
+
+GRANT SELECT ON roles TO agency_role;
+GRANT SELECT ON customers TO agency_role;
+GRANT SELECT ON destinations TO agency_role;
+GRANT SELECT ON flights TO agency_role;
+GRANT SELECT ON accomodations TO agency_role;
+GRANT SELECT ON taxiTransfers TO agency_role;
+GRANT SELECT ON services TO agency_role;
+GRANT SELECT ON bookings TO agency_role;
+GRANT SELECT ON payments TO agency_role;
+GRANT SELECT ON feedback TO agency_role;
+GRANT SELECT ON promotions TO agency_role;
+GRANT SELECT ON agencies TO agency_role;
+GRANT SELECT ON holidayType TO agency_role;
