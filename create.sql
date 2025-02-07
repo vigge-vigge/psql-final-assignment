@@ -1,5 +1,5 @@
 
-\c easytravel
+\c easytravel2
 
 CREATE TABLE roles(
     role_id SERIAL PRIMARY KEY,
@@ -92,7 +92,7 @@ CREATE TABLE payments(
 CREATE TABLE feedback(
     feedback_id SERIAL PRIMARY KEY,
     booking_id INT REFERENCES bookings(booking_id) ON DELETE CASCADE,
-    rating INT CHECK (rating BETWEEN 1 AND 5), -- space between 1 and AND
+    rating INT CHECK (rating BETWEEN 1 AND 5),
     comments TEXT
 );
 
@@ -147,3 +147,6 @@ GRANT SELECT ON feedback TO agency_role;
 GRANT SELECT ON promotions TO agency_role;
 GRANT SELECT ON agencies TO agency_role;
 GRANT SELECT ON holidayType TO agency_role;
+
+-- to access on powershell
+-- psql -U admin_role -d easytravel2 
