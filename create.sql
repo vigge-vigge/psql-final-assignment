@@ -127,6 +127,16 @@ CREATE TABLE holidayType(
     description VARCHAR(255) NOT NULL
 );
 
+ALTER TABLE services
+ADD COLUMN agency_id INT REFERENCES agencies(agency_id) ON DELETE SET NULL;
+
+ALTER TABLE promotions
+ADD COLUMN agency_id INT REFERENCES agencies(agency_id) ON DELETE CASCADE;
+
+ALTER TABLE customers
+ADD COLUMN holiday_type_id INT REFERENCES holidayType(holiday_type_id) ON DELETE SET NULL;
+
+
 
 CREATE ROLE admin_role PASSWORD 'admin123';
 
