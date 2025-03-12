@@ -121,7 +121,7 @@ CREATE TABLE agencies(
     agency_service VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE holidayType(
+CREATE TABLE holidayType( -- holiday package for the customer. The customer can access the agency through this
     holiday_type_id SERIAL PRIMARY KEY,
     holiday_type_name VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL
