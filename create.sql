@@ -133,14 +133,17 @@ ADD COLUMN agency_id INT REFERENCES agencies(agency_id) ON DELETE SET NULL;
 ALTER TABLE promotions
 ADD COLUMN agency_id INT REFERENCES agencies(agency_id) ON DELETE CASCADE;
 
-ALTER TABLE customers
-ADD COLUMN holiday_type_id INT REFERENCES holidayType(holiday_type_id) ON DELETE SET NULL;
+ALTER TABLE agencies
+ADD COLUMN holiday_type_id INT REFERENCES holidayType(holiday_type_id) ON DELETE SET NULL; -- customer can access agencies through holiday packages
+
 
 
 
 CREATE ROLE admin_role PASSWORD 'admin123';
 
 CREATE ROLE agency_role PASSWORD 'agency123';
+
+CREATE ROLE customer_role PASSWORD 'customer123';
 
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public to admin_role;
 
@@ -157,6 +160,19 @@ GRANT SELECT ON feedback TO agency_role;
 GRANT SELECT ON promotions TO agency_role;
 GRANT SELECT ON agencies TO agency_role;
 GRANT SELECT ON holidayType TO agency_role;
+
+GRANT SELECT ON customerLoyalty TO customer_role;
+GRANT SELECT ON destinations TO customer_role;
+GRANT SELECT ON flights TO customer_role;
+GRANT SELECT ON accomodations TO customer_role;
+GRANT SELECT ON taxiTransfers TO customer_role;
+GRANT SELECT ON services TO customer_role;
+GRANT SELECT ON bookings TO customer_role;
+GRANT SELECT ON payments TO customer_role;
+GRANT SELECT ON feedback TO customer_role;
+GRANT SELECT ON promotions TO customer_role;
+GRANT SELECT ON agencies TO customer_role;
+GRANT SELECT ON holidayType TO customer_role;
 
 -- to access on powershell
 -- psql -U admin_role -d easytravel2 

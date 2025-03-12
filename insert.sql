@@ -68,6 +68,21 @@ VALUES
 ('Vigge Third Agency', 'viggeagency3@gmail.com', '3456789', 'Booking Hotels and Flights'),
 ('Vigge Fourt Agency', 'viggeagency4@gmail.com', '4567890', 'Booking Hotels and Flights');
 
+INSERT INTO holidayType (holiday_type_name, description)
+VALUES 
+    ('Bahamas', 'Premium package'),
+    ('Nigeria', 'Gold package'),
+    ('Thailand', 'Silver package'),
+    ('Spain', 'Premium package');
+
+INSERT INTO promotions (promotion_name, discount_percentage, start_date, end_date, is_loyalty_exclusive)
+VALUES 
+    ('Bahamas Premium Package Promotion', 100.00, '2025-03-01', '2025-03-31', FALSE),
+    ('Nigeria Gold Package Promotion', 250.00, '2025-03-01', '2025-03-31', FALSE),
+    ('Thailand Silver Package Promotion', 60.00, '2025-03-01', '2025-03-31', FALSE),
+    ('Spain Premium Package Promotion', 10.00, '2025-03-01', '2025-03-31', FALSE);
+
+
 --after skills up to select ratings
 -- INSERT INTO promotions (promotion_id, promotion_name, start_date, end_date, discount)
 -- VALUES (1, 'Summer Sale', '2023-06-01', 2023-08)
