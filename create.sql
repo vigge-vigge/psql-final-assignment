@@ -20,7 +20,7 @@ CREATE TABLE customerLoyalty(
     loyalty_id SERIAL PRIMARY KEY,
     customer_id INT REFERENCES customers(customer_id) ON DELETE CASCADE,
     points_earned INT DEFAULT 0,
-    points_redeemed INT DEFAULT 0
+    points_redeemed INT DEFAULT 0x
 );
 
 CREATE TABLE destinations(
@@ -147,7 +147,6 @@ CREATE ROLE customer_role PASSWORD 'customer123';
 
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public to admin_role;
 
-GRANT SELECT ON roles TO agency_role;
 GRANT SELECT ON customers TO agency_role;
 GRANT SELECT ON destinations TO agency_role;
 GRANT SELECT ON flights TO agency_role;
@@ -160,6 +159,32 @@ GRANT SELECT ON feedback TO agency_role;
 GRANT SELECT ON promotions TO agency_role;
 GRANT SELECT ON agencies TO agency_role;
 GRANT SELECT ON holidayType TO agency_role;
+
+GRANT INSERT ON customers TO agency_role;
+GRANT INSERT ON destinations TO agency_role;
+GRANT INSERT ON flights TO agency_role;
+GRANT INSERT ON accomodations TO agency_role;
+GRANT INSERT ON taxiTransfers TO agency_role;
+GRANT INSERT ON services TO agency_role;
+GRANT INSERT ON bookings TO agency_role;
+GRANT INSERT ON payments TO agency_role;
+GRANT INSERT ON feedback TO agency_role;
+GRANT INSERT ON promotions TO agency_role;
+GRANT INSERT ON agencies TO agency_role;
+GRANT INSERT ON holidayType TO agency_role;
+
+GRANT UPDATE ON customers TO agency_role;
+GRANT UPDATE ON destinations TO agency_role;
+GRANT UPDATE ON flights TO agency_role;
+GRANT UPDATE ON accomodations TO agency_role;
+GRANT UPDATE ON taxiTransfers TO agency_role;
+GRANT UPDATE ON services TO agency_role;
+GRANT UPDATE ON bookings TO agency_role;
+GRANT UPDATE ON payments TO agency_role;
+GRANT UPDATE ON feedback TO agency_role;
+GRANT UPDATE ON promotions TO agency_role;
+GRANT UPDATE ON agencies TO agency_role;
+GRANT UPDATE ON holidayType TO agency_role;
 
 GRANT SELECT ON customerLoyalty TO customer_role;
 GRANT SELECT ON destinations TO customer_role;
