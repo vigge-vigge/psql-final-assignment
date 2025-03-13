@@ -82,6 +82,16 @@ VALUES
     ('Thailand Silver Package Promotion', 60.00, '2025-03-01', '2025-03-31', FALSE),
     ('Spain Premium Package Promotion', 10.00, '2025-03-01', '2025-03-31', FALSE);
 
+INSERT INTO customer_holiday_types (customer_id, holiday_type_id)
+VALUES
+    (6, 2),
+    (6, 3),
+    (7, 1),
+    (7, 2),
+    (8, 4),
+    (5, 1),
+    (5, 3);
+
 
 --after skills up to select ratings
 -- INSERT INTO promotions (promotion_id, promotion_name, start_date, end_date, discount)

@@ -127,6 +127,12 @@ CREATE TABLE holidayType( -- holiday package for the customer. The customer can 
     description VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE customer_holiday_types (
+    customer_id INT REFERENCES customers(customer_id) ON DELETE CASCADE,
+    holiday_type_id INT REFERENCES holidayType(holiday_type_id) ON DELETE CASCADE,
+    PRIMARY KEY (customer_id, holiday_type_id)
+);
+
 ALTER TABLE services
 ADD COLUMN agency_id INT REFERENCES agencies(agency_id) ON DELETE SET NULL;
 
@@ -136,6 +142,8 @@ ADD COLUMN agency_id INT REFERENCES agencies(agency_id) ON DELETE CASCADE;
 ALTER TABLE agencies
 ADD COLUMN holiday_type_id INT REFERENCES holidayType(holiday_type_id) ON DELETE SET NULL; -- customer can access agencies through holiday packages
 
+ALTER TABLE agencies
+    DROP COLUMN holiday_type_id;
 
 
 
@@ -198,6 +206,8 @@ GRANT SELECT ON feedback TO customer_role;
 GRANT SELECT ON promotions TO customer_role;
 GRANT SELECT ON agencies TO customer_role;
 GRANT SELECT ON holidayType TO customer_role;
+
+GRANT INSERT, DELETE ON customer_holiday_types TO customer_role;
 
 -- to access on powershell
 -- psql -U admin_role -d easytravel2 
