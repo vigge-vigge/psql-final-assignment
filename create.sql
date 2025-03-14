@@ -257,3 +257,4 @@ GRANT SELECT ON holidayType TO customer_role;
 -- psql -U admin_role -d easytravel2 
 
 ALTER TABLE customers ADD COLUMN test VARCHAR(50);
+ALTER TABLE customers DROP COLUMN test;

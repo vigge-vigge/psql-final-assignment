@@ -4,6 +4,7 @@ INSERT INTO customers (customer_name, customer_surname, customer_email, password
 VALUES
 ('Tina', 'Kales', 'tkales@gmail.com', 'klklkl', 1),
 -- ('Victor', 'Vigge', 'victorvigge@gmail.com', 'vivivi', 1);
+-- ('Emmanuel', 'Akande', 'eakande@gmail.com', 'eaeaea', 1);
 ('Stiles', 'McCall', 'smccall23@gmail.com', 's67th', 1),
 ('Zeke', 'Argent', 'zargent89@gmail.com', 'zeke123', 1),
 ('Mia', 'Moline', 'mmoleme@gmail.com', '3386', 1);
