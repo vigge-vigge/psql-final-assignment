@@ -72,7 +72,7 @@ CREATE TABLE bookings(
     transfer_id INT REFERENCES taxitransfers(transfer_id) ON DELETE SET NULL,
     booking_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     total_price NUMERIC(10, 2) NOT NULL,
-    status VARCHAR(50) DEFAULT 'pending'
+    status VARCHAR(50) DEFAULT 'pending' -- should be enum
 );
 
 CREATE TABLE bookingservices(
@@ -153,7 +153,29 @@ CREATE ROLE agency_role PASSWORD 'agency123';
 
 CREATE ROLE customer_role PASSWORD 'customer123';
 
+-- Admin role
+
+
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public to admin_role;
+ALTER TABLE customers OWNER TO admin_role;
+ALTER TABLE customerLoyalty OWNER TO admin_role;
+ALTER TABLE destinations OWNER TO admin_role;
+ALTER TABLE flights OWNER TO admin_role;
+ALTER TABLE accomodations OWNER TO admin_role;
+ALTER TABLE taxiTransfers OWNER TO admin_role;
+ALTER TABLE services OWNER TO admin_role;
+ALTER TABLE bookings OWNER TO admin_role;
+ALTER TABLE bookingservices OWNER TO admin_role;
+ALTER TABLE payments OWNER TO admin_role;
+ALTER TABLE feedback OWNER TO admin_role;
+ALTER TABLE promotions OWNER TO admin_role;
+ALTER TABLE bookingpromotions OWNER TO admin_role;
+ALTER TABLE agencies OWNER TO admin_role;
+ALTER TABLE holidayType OWNER TO admin_role;
+ALTER TABLE customer_holiday_types OWNER TO admin_role;
+
+
+-- Agency role. Done
 
 GRANT SELECT ON customers TO agency_role;
 GRANT SELECT ON destinations TO agency_role;
@@ -181,6 +203,25 @@ GRANT INSERT ON promotions TO agency_role;
 GRANT INSERT ON agencies TO agency_role;
 GRANT INSERT ON holidayType TO agency_role;
 
+GRANT USAGE, SELECT ON SEQUENCE customers_customer_id_seq TO agency_role;
+GRANT USAGE, SELECT ON SEQUENCE customerLoyalty_loyalty_id_seq TO admin_role;
+GRANT USAGE, SELECT ON SEQUENCE destinations_destination_id_seq TO admin_role;
+GRANT USAGE, SELECT ON SEQUENCE flights_flight_id_seq TO admin_role;
+GRANT USAGE, SELECT ON SEQUENCE accomodations_accomodation_id_seq TO admin_role;
+GRANT USAGE, SELECT ON SEQUENCE taxiTransfers_transfer_id_seq TO admin_role;
+GRANT USAGE, SELECT ON SEQUENCE services_service_id_seq TO admin_role;
+GRANT USAGE, SELECT ON SEQUENCE bookings_booking_id_seq TO admin_role;
+GRANT USAGE, SELECT ON SEQUENCE payments_payment_id_seq TO admin_role;
+GRANT USAGE, SELECT ON SEQUENCE feedback_feedback_id_seq TO admin_role;
+GRANT USAGE, SELECT ON SEQUENCE promotions_promotion_id_seq TO admin_role;
+GRANT USAGE, SELECT ON SEQUENCE agencies_agency_id_seq TO admin_role;
+GRANT USAGE, SELECT ON SEQUENCE holidayType_holiday_type_id_seq TO admin_role;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE customer_holiday_types TO agency_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE bookingpromotions TO agency_role;
+GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE bookingservices TO agency_role;
+
+
 GRANT UPDATE ON customers TO agency_role;
 GRANT UPDATE ON destinations TO agency_role;
 GRANT UPDATE ON flights TO agency_role;
@@ -193,6 +234,10 @@ GRANT UPDATE ON feedback TO agency_role;
 GRANT UPDATE ON promotions TO agency_role;
 GRANT UPDATE ON agencies TO agency_role;
 GRANT UPDATE ON holidayType TO agency_role;
+
+
+-- Customer role. done
+ALTER ROLE customer_role WITH LOGIN;
 
 GRANT SELECT ON customerLoyalty TO customer_role;
 GRANT SELECT ON destinations TO customer_role;
@@ -207,7 +252,8 @@ GRANT SELECT ON promotions TO customer_role;
 GRANT SELECT ON agencies TO customer_role;
 GRANT SELECT ON holidayType TO customer_role;
 
-GRANT INSERT, DELETE ON customer_holiday_types TO customer_role;
 
 -- to access on powershell
 -- psql -U admin_role -d easytravel2 
+
+ALTER TABLE customers ADD COLUMN test VARCHAR(50);

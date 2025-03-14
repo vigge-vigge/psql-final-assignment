@@ -3,6 +3,7 @@ INSERT INTO roles (role_name) VALUES ('Admin'), ('Customer'), ('TravelAgent'), (
 INSERT INTO customers (customer_name, customer_surname, customer_email, password_hash, role_id)
 VALUES
 ('Tina', 'Kales', 'tkales@gmail.com', 'klklkl', 1),
+-- ('Victor', 'Vigge', 'victorvigge@gmail.com', 'vivivi', 1);
 ('Stiles', 'McCall', 'smccall23@gmail.com', 's67th', 1),
 ('Zeke', 'Argent', 'zargent89@gmail.com', 'zeke123', 1),
 ('Mia', 'Moline', 'mmoleme@gmail.com', '3386', 1);
